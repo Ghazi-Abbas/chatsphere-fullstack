@@ -6,7 +6,8 @@ import lombok.*;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-@Table(name="user",indexes={
+@Table(name="users",
+        indexes={
         @Index(name="idx_email",columnList="email")
 })
 @Getter
@@ -16,6 +17,7 @@ import java.util.UUID;
 @Builder
 
 @Entity
+
 public class User {
 
     @Id
