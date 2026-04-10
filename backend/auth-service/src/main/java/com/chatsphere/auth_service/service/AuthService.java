@@ -7,4 +7,5 @@ public interface AuthService {
 
     public String signup(SignUpRequest request);
     public String login(LoginRequest request);
+
 }

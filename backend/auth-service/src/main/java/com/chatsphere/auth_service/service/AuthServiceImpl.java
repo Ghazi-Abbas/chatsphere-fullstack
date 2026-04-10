@@ -3,6 +3,7 @@ package com.chatsphere.auth_service.service;
 import com.chatsphere.auth_service.dto.LoginRequest;
 import com.chatsphere.auth_service.dto.SignUpRequest;
 import com.chatsphere.auth_service.repository.UserRepository;
+import com.chatsphere.auth_service.security.JwtService;
 import lombok.RequiredArgsConstructor;
 import com.chatsphere.auth_service.entity.User;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -14,6 +15,7 @@ public class AuthServiceImpl implements AuthService{
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final JwtService jwtService;
 @Override
     public String signup(SignUpRequest request){
         if(userRepository.findByEmail(request.getEmail()).isPresent()){
@@ -45,6 +47,6 @@ public class AuthServiceImpl implements AuthService{
      if(!passwordEncoder.matches(request.getPassword(),user.getPasswordHash())){
          throw new RuntimeException("Invalid Password");
      }
-     return "Login is successful!";
+     return jwtService.generateToken(user.getEmail());
     }
 }
